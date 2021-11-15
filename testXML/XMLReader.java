@@ -1,3 +1,4 @@
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -21,6 +22,8 @@ public class XMLReader
                 {
                     if(reader.getName().toString() == "client")
                     {
+//
+                        System.out.println("Client n°"+reader.getAttributeValue(0) );
                         Client c = readClient(reader);
                     }
                 }
@@ -45,6 +48,8 @@ public class XMLReader
             {
                 if(reader.getName().toString() == "planche")
                 {
+                    String commande = "Commande n°" + reader.getAttributeValue(0) + " de " + reader.getAttributeValue(1) + " planches à livrer pour le " + reader.getAttributeValue(2) + " au prix maximal de " +reader.getAttributeValue(3);
+                    System.out.println(commande);
                     Planche p = readPlanche(reader);
                     listPlanche.add(p);
                 }
@@ -56,6 +61,27 @@ public class XMLReader
 
     static Planche readPlanche(XMLStreamReader reader) throws XMLStreamException
     {
-        return null;
+
+        while(reader.hasNext())
+        {
+            if(reader.next() == XMLStreamConstants.START_ELEMENT)
+            {
+
+                if(reader.getName().toString() != "dim" && reader.getName().toString() != "client")
+                {
+                    String commande = "Commande n°" + reader.getAttributeValue(0) + " de " + reader.getAttributeValue(1) + " planches à livrer pour le " + reader.getAttributeValue(2) + " au prix maximal de " +reader.getAttributeValue(3);
+                    System.out.println(commande);
+                }else if(reader.getName().toString() == "dim"){
+                    double L = Double.parseDouble(reader.getAttributeValue(0));
+                    double l = Double.parseDouble(reader.getAttributeValue(1));
+                    System.out.println("dimension L*l=: "+L+"*"+l);
+
+                }else{
+                    System.out.println("Client n°"+reader.getAttributeValue(0) );
+                }
+
+            }
+        }
+        return new Planche(8, 7);
     }
 }

@@ -9,9 +9,4 @@ public class Client
         this.id = id;
         this.listP = listPlanche;
     }
-
-
-
-
-
 }
