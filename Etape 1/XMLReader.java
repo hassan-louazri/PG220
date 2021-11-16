@@ -11,8 +11,8 @@ import java.util.List;
 public class XMLReader
 {
 
-   static int loop=0;
-    static void readXml(String filename,String name, String type)//name:client/fournisseur
+   private static int loop=0;
+    static  void readXml(String filename,String name, String type)//name:client/fournisseur
                                                                 //type: planche/panneau
     {
         loop=0;
@@ -29,9 +29,11 @@ public class XMLReader
                         {
                             if(name=="client"){
                                 Client c =(Client) readName(reader,type);
+                                Test.listClient.add(c);
                             }
                             if(name=="fournisseur"){
                                 Supplier s=(Supplier)readName(reader, type);
+                               Test.listSupplier.add(s);
                             }
                         }
                     }
@@ -40,9 +42,11 @@ public class XMLReader
                         {
                             if(name=="client"){
                                 Client c =(Client) readName(reader,type);
+                                Test.listClient.add(c);
                             }
                             if(name=="fournisseur"){
                                 Supplier s=(Supplier)readName(reader, type);
+                                Test.listSupplier.add(s);
                             }
                         }
                 }
@@ -57,9 +61,10 @@ public class XMLReader
         {
             e.printStackTrace();
         }
+       
     }
 
-    static Object readName(XMLStreamReader reader, String type) throws XMLStreamException
+    static User readName(XMLStreamReader reader, String type) throws XMLStreamException
     {
         List<Planche> listPlanche = new ArrayList<>();
         int id = Integer.parseInt(reader.getAttributeValue(0));
@@ -90,7 +95,7 @@ public class XMLReader
             return new Supplier(id,listPanneau);
     }
 
-    static Object readType(XMLStreamReader reader,String type) throws XMLStreamException
+    static Wood readType(XMLStreamReader reader,String type) throws XMLStreamException
     {
         int id = (int)controle_date(reader.getAttributeValue(0),"Integer");
         int number = (int)controle_date(reader.getAttributeValue(1),"Integer");
