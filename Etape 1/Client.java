@@ -4,7 +4,6 @@ public class Client implements IValidate
 {
     int id;
     List<Planche> listP;
-    List<IValidate> listV;
     Client(int id, List<Planche> listPlanche)
     {
         this.id = id;
@@ -25,7 +24,7 @@ public class Client implements IValidate
                 System.out.print("price >=0:?");
                  return false;
              }
-             System.out.print("price >=0:?");
+                System.out.print("price >=0:?");
         return true;
     }
 }

@@ -10,13 +10,14 @@ import java.util.List;
 
 public class XMLReader
 {
+
    static int loop=0;
     static void readXml(String filename,String name, String type)//name:client/fournisseur
-                                                                //type: planche panneau
+                                                                //type: planche/panneau
     {
+        loop=0;
         try
         {
-            
             FileInputStream file = new FileInputStream(filename);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(file);
             while(reader.hasNext())
@@ -26,13 +27,23 @@ public class XMLReader
                     {
                         if(reader.getName().toString() == name)
                         {
-                            Client c = readClient(reader,type);
+                            if(name=="client"){
+                                Client c =(Client) readName(reader,type);
+                            }
+                            if(name=="fournisseur"){
+                                Supplier s=(Supplier)readName(reader, type);
+                            }
                         }
                     }
                 }else{
                         if(reader.getName().toString() == name)
                         {
-                            Client c = readClient(reader,type);
+                            if(name=="client"){
+                                Client c =(Client) readName(reader,type);
+                            }
+                            if(name=="fournisseur"){
+                                Supplier s=(Supplier)readName(reader, type);
+                            }
                         }
                 }
                
@@ -48,18 +59,24 @@ public class XMLReader
         }
     }
 
-    static Client readClient(XMLStreamReader reader, String type) throws XMLStreamException
+    static Object readName(XMLStreamReader reader, String type) throws XMLStreamException
     {
         List<Planche> listPlanche = new ArrayList<>();
         int id = Integer.parseInt(reader.getAttributeValue(0));
 
+        List<Panneau> listPanneau = new ArrayList<>();
         while(reader.hasNext()) {
             if(reader.next() == XMLStreamConstants.START_ELEMENT)
             {
                 if(reader.getName().toString() == type)
                 {
-                    Planche p = readPlanche(reader);
-                    listPlanche.add(p);
+                    if(type=="planche"){
+                        Planche p = (Planche)readType(reader,type);
+                        listPlanche.add(p);
+                    }else{
+                        Panneau p = (Panneau)readType(reader,type);
+                        listPanneau.add(p);
+                    }
                 }else{
                      loop++;
                     break;
@@ -67,21 +84,19 @@ public class XMLReader
 
             }
         };
-        return new Client(id,listPlanche);
+        if(type=="planche")
+            return new Client(id,listPlanche);
+        else
+            return new Supplier(id,listPanneau);
     }
 
-    static Planche readPlanche(XMLStreamReader reader) throws XMLStreamException
+    static Object readType(XMLStreamReader reader,String type) throws XMLStreamException
     {
-        int id = Integer.parseInt(reader.getAttributeValue(0));
-        int number = Integer.parseInt(reader.getAttributeValue(1));
+        int id = (int)controle_date(reader.getAttributeValue(0),"Integer");
+        int number = (int)controle_date(reader.getAttributeValue(1),"Integer");
         String date =reader.getAttributeValue(2);
-        double price;
         Dimension dim;
-        try {
-            price = Double.parseDouble(reader.getAttributeValue(3));
-        }catch (Exception e){
-            price=-1;
-        }
+        double price = (double)controle_date(reader.getAttributeValue(3),"Double");
         double Longeur=0,largeur=0;
         while(reader.hasNext())
         {
@@ -89,15 +104,44 @@ public class XMLReader
             {
 
                 if(reader.getName().toString() == "dim"){
-                    Longeur = Double.parseDouble(reader.getAttributeValue(0));
-                    largeur = Double.parseDouble(reader.getAttributeValue(1));
+                        Longeur = (double)controle_date(reader.getAttributeValue(0), "Double");
+                        largeur = (double)controle_date(reader.getAttributeValue(1), "Double");
                     break;
                 }
 
             }
         }
         dim=new Dimension(largeur, Longeur);
-        Planche p=new Planche(id,number,date, price,dim);
-        return p;
+        if(type=="planche"){
+            Planche p=new Planche(id,number,date, price,dim);
+            return p;
+        }else{
+            Panneau p=new Panneau(id,number,date, price,dim);
+            return p;
+        }
+        
+    }
+    static Object controle_date(String data, String type){
+        Object r=0;
+        if(type=="Double"){
+            try {
+                    r=Double.parseDouble(data);
+                    r= (double)r;   
+            } catch (Exception e) {
+                    r=-1.0;
+                
+            }
+            return (double)r;
+        }else  if(type=="Integer"){
+            try {
+                    r=Integer.parseInt(data);
+                    r= (int)r;   
+            } catch (Exception e) {
+                    r=-1;
+                
+            }
+            return (int)r;
+        }else
+            return null;
     }
 }
