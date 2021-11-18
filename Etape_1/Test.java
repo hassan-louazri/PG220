@@ -9,6 +9,7 @@ public class Test {
 
     static List<Client> listClient;
     static List<Supplier> listSupplier;
+    private static Cut cut;
     public static void main(String[] argvs) throws Exception {
         listClient=new ArrayList<>();
         listSupplier=new ArrayList<>();
@@ -44,6 +45,7 @@ public class Test {
         }
      }
      System.out.print("\n\n=================================================\n\n");
-
+        cut=XMLReader.readDecoupe("decoupes.xml");
+        System.out.println("X="+cut.PositionX+"Y="+cut.PositionY);
     }
 }

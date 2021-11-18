@@ -12,6 +12,52 @@ public class XMLReader
 {
 
    private static int loop=0;
+  
+   static Cut readDecoupe(String filename)
+    {
+        double PositionX=0;
+        double PositionY=0;
+        int clientid=0,supplierid=0;
+        int numplanche=0,numpanneau=0;
+        try
+        {
+            FileInputStream file = new FileInputStream(filename);
+            XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(file);
+            while(reader.hasNext())
+            {
+                if(reader.next() == XMLStreamConstants.START_ELEMENT)
+                {
+                    
+                    if(reader.getName().toString() == "client")
+                    {
+                        clientid =(int)controle_data(reader.getAttributeValue(0),"Integer");
+                        numplanche =(int)controle_data(reader.getAttributeValue(1),"Integer");
+                    }
+                    if(reader.getName().toString() == "fournisseur")
+                    {
+                        supplierid =(int)controle_data(reader.getAttributeValue(0),"Integer");
+                        numpanneau =(int)controle_data(reader.getAttributeValue(1),"Integer");
+                    }
+                    if(reader.getName().toString() == "position")
+                    {
+                        PositionX =(double)controle_data(reader.getAttributeValue(0),"Double");
+                        PositionY =(double)controle_data(reader.getAttributeValue(1),"Double");
+                    }
+                }
+            }
+           
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (XMLStreamException e)
+        {
+            e.printStackTrace();
+        }
+        Cut c=new Cut(PositionX, PositionY, clientid, supplierid, numplanche, numpanneau);
+    return c; 
+   }
     static  void readXml(String filename,String name, String type)//name:client/fournisseur
                                                                 //type: planche/panneau
     {
@@ -97,11 +143,11 @@ public class XMLReader
 
     static Wood readType(XMLStreamReader reader,String type) throws XMLStreamException
     {
-        int id = (int)controle_date(reader.getAttributeValue(0),"Integer");
-        int number = (int)controle_date(reader.getAttributeValue(1),"Integer");
+        int id = (int)controle_data(reader.getAttributeValue(0),"Integer");
+        int number = (int)controle_data(reader.getAttributeValue(1),"Integer");
         String date =reader.getAttributeValue(2);
         Dimension dim;
-        double price = (double)controle_date(reader.getAttributeValue(3),"Double");
+        double price = (double)controle_data(reader.getAttributeValue(3),"Double");
         double Longeur=0,largeur=0;
         while(reader.hasNext())
         {
@@ -109,8 +155,8 @@ public class XMLReader
             {
 
                 if(reader.getName().toString() == "dim"){
-                        Longeur = (double)controle_date(reader.getAttributeValue(0), "Double");
-                        largeur = (double)controle_date(reader.getAttributeValue(1), "Double");
+                        Longeur = (double)controle_data(reader.getAttributeValue(0), "Double");
+                        largeur = (double)controle_data(reader.getAttributeValue(1), "Double");
                     break;
                 }
 
@@ -126,7 +172,7 @@ public class XMLReader
         }
         
     }
-    static Object controle_date(String data, String type){
+    static Object controle_data(String data, String type){
         Object r=0;
         if(type=="Double"){
             try {
