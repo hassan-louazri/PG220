@@ -3,7 +3,7 @@ public class Dimension implements IValidate{
     double Longueur;
     Dimension(double largeur,double Longueur){
         this.largeur=largeur;
-        this.Longueur=Longueur;
+        this.Longueur = Longueur;
     }
     @Override
     public boolean isValid(Object o){
