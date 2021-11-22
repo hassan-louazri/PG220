@@ -2,7 +2,7 @@
 public class Cut implements IValidate{
     double PositionX;
     double PositionY;
-    int clienId, supplierId, numPlanche, numPanneau;
+    int clientId, supplierId, numPlanche, numPanneau;
     Cut(double PositionX, double PositionY, int cid, int sid, int npl, int npan) {
         this.PositionX = PositionX;
         this.PositionY = PositionY;
@@ -18,7 +18,7 @@ public class Cut implements IValidate{
         if(cut.PositionX <= 0 || cut.PositionY <= 0){
           return false;
         }
-        if(!existsInList(cut.clientId, cut.numPlanche, listClient) || !existsInList(cut.supplierId, cut.nunumPanneau, listSupplier)){
+        if(!User.existsInList(cut.clientId, cut.numPlanche, Test.listClient) || !User.existsInList(cut.supplierId, cut.numPanneau, Test.listSupplier)){
           return false;
         }
 

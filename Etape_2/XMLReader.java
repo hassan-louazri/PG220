@@ -30,24 +30,25 @@ public class XMLReader
 
                     if(reader.getName().toString() == "client")
                     {
+
                         clientid =(int)controle_data(reader.getAttributeValue(0),"Integer");
                         numplanche =(int)controle_data(reader.getAttributeValue(1),"Integer");
                     }
                     if(reader.getName().toString() == "fournisseur")
                     {
+
                         supplierid =(int)controle_data(reader.getAttributeValue(0),"Integer");
                         numpanneau =(int)controle_data(reader.getAttributeValue(1),"Integer");
                     }
                     if(reader.getName().toString() == "position")
                     {
+
                         PositionX =(double)controle_data(reader.getAttributeValue(0),"Double");
                         PositionY =(double)controle_data(reader.getAttributeValue(1),"Double");
-                    }
-                    if(reader.getName().toString() == "decoupe")
-                    {
-                        Cut c=new Cut(PositionX, PositionY, clientid, supplierid, numplanche, numpanneau);
+                        Cut c = new Cut(PositionX, PositionY, clientid, supplierid, numplanche, numpanneau);
                         cuts.add(c);
                     }
+
 
                 }
             }

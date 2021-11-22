@@ -46,8 +46,8 @@ public class Test {
      }
      System.out.print("\n\n=================================================\n\n");
 
-     
+
         cuts=XMLReader.readDecoupe("decoupes.xml");
-        Solution.solution(listClient,listSupplier,cuts);
+        Solution.solution(listClient, listSupplier, cuts);
     }
 }

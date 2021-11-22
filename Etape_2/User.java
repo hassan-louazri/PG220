@@ -14,7 +14,7 @@ public abstract class User implements IValidate{
         return ((Wood)o).price >= 0;
     }
 
-    boolean existsInList(int userId, int woodId, List <? extends User>userList){
+    static boolean existsInList(int userId, int woodId, List <? extends User>userList){
         for(User u : userList){
           if(u.id == userId){
             for (Wood w : u.listW){
