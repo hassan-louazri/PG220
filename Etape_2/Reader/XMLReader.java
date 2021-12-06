@@ -15,6 +15,7 @@ public class XMLReader implements IRead
     @Override
      public void readData(String filename){
       {
+        data.clear();  
         try
         {
             FileInputStream file = new FileInputStream(filename);

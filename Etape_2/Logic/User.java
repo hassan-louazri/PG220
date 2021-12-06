@@ -1,18 +1,13 @@
 package Logic;
 import java.util.List;
 
- abstract class User implements IValidate{
+ abstract class User{
     int id;
     List<? extends Wood> listW;
     User(int id, List<? extends Wood>listWood)
     {
         this.id = id;
         this.listW = listWood;
-    }
-
-    @Override
-    public boolean isValid(Object o){
-        return ((Wood)o).price >= 0;
     }
 
     static boolean existsInList(int userId, int woodId, List <? extends User>userList){
@@ -27,5 +22,20 @@ import java.util.List;
           }
         }
         return false;
+    }
+
+    static Dimension getUserDimensions(int userId, int woodId, List<? extends User>userList){
+      Dimension dim = new Dimension(-1, -1);
+      for (User user : userList){
+        if (user.id == userId){
+          for (Wood wood : user.listW){
+            if (wood.id == woodId){
+              dim = wood.dimension;
+              return dim;
+            }
+          }
+        }
+      }
+      return dim;
     }
 }
