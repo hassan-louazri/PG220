@@ -3,14 +3,16 @@ import java.util.List;
 class Cut implements IValidate{
     int PositionX;
     int PositionY;
-    int clientId, supplierId, idPlanche, idPanneau;
-    Cut(int PositionX, int PositionY, int cid, int sid, int idPl, int idPan) {
+    int clientId, supplierId, idPlanche, idPanneau, numPlanche, numPanneau;
+    Cut(int PositionX, int PositionY, int cid, int sid, int idPl, int idPan, int numPl, int numPan) {
         this.PositionX = PositionX;
         this.PositionY = PositionY;
         this.clientId = cid;
         this.supplierId = sid;
         this.idPlanche = idPl;
         this.idPanneau = idPan;
+        this.numPlanche = numPl;
+        this.numPanneau = numPan;
     }
     @Override
     public boolean[] isValid(){

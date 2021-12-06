@@ -9,19 +9,19 @@ class Main {
    private static List<Cut> cuts;
 
    public static void main(String[] argvs) throws Exception {
-      
+
       listClient = new ArrayList<>();
       listSupplier = new ArrayList<>();
       cuts = new ArrayList<>();
-      
+
       IRead r = new XMLReader();
-      
+
       r.readData("clients.xml");
       new ClientFactory(IRead.data);
-      
+
       r.readData("fournisseurs.xml");
       new SupplierFactory(IRead.data);
-      
+
       r.readData("decoupes.xml");
       new CutFactory(IRead.data);
 
@@ -40,7 +40,7 @@ class Main {
          }
       }
       System.out.print("\n\n=================================================\n\n");
-     
+
       for(int j=0;j<listSupplier.size();j++){
          System.out.print("\n\n=============Supplier n°:"+listSupplier.get(j).id+"=============\n");
          for (int i = 0; i< listSupplier.get(j).listW.size();i++){
@@ -56,13 +56,13 @@ class Main {
          }
       }
       System.out.print("\n\n=================================================\n\n");
-     
+
       for (int j=0;j<cuts.size() ;j++ ) {
-         String jobDone = "\nDécoupe de la Planche n°" + cuts.get(j).idPlanche + " pour le client n°" + cuts.get(j).clientId + " du panneau n°"+ cuts.get(j).idPanneau + " du fournisseur n°" + cuts.get(j).supplierId + " dont la position du départ est (x, y) = (" + cuts.get(j).PositionX +", "+ cuts.get(j).PositionY + ").\n";
+         String jobDone = "\nDécoupe de la Planche n°" + cuts.get(j).idPlanche+"."+ cuts.get(j).numPlanche + " pour le client n°" + cuts.get(j).clientId + " du panneau n°"+ cuts.get(j).idPanneau + "." + cuts.get(j).numPanneau + " du fournisseur n°" + cuts.get(j).supplierId + " dont la position du départ est (x, y) = (" + cuts.get(j).PositionX +", "+ cuts.get(j).PositionY + ").\n";
          System.out.println(jobDone);
          boolean[] CutIsValid = cuts.get(j).isValid();
          //Positions Control
-         System.out.println("Positions are valid : " + CutIsValid[0]);       
+         System.out.println("Positions are valid : " + CutIsValid[0]);
          //Existing Plank/Pannel Control
          System.out.println("Pannel and Plank exist : " + CutIsValid[1]);
          //Dimensions Control

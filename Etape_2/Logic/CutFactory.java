@@ -27,8 +27,15 @@ class CutFactory implements IFactory{
         int supplierId = Integer.parseInt(cutData.get(3));
         int x = Integer.parseInt(cutData.get(6));
         int y = Integer.parseInt(cutData.get(7));
-        int plankId = (int)Math.round(Double.parseDouble(cutData.get(1)));
-        int pannelId = (int)Math.round(Double.parseDouble(cutData.get(4)));
-        return new Cut(x, y, clientId, supplierId, plankId, pannelId);
+
+        String plank = cutData.get(1);
+        int plankId = Integer.parseInt(plank.substring(0, plank.indexOf(".")));
+        int numPlank = Integer.parseInt(plank.substring(1 + plank.indexOf(".")));
+
+        String pannel = cutData.get(4);
+        int pannelId = Integer.parseInt(pannel.substring(0, pannel.indexOf(".")));
+        int numPannel = Integer.parseInt(pannel.substring(1 + pannel.indexOf(".")));
+
+        return new Cut(x, y, clientId, supplierId, plankId, pannelId, numPlank, numPannel);
     }
 }
