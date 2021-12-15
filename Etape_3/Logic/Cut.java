@@ -26,8 +26,8 @@ class Cut implements IValidate{
         }
         Dimension dimPlanche = User.getUserDimensions(cut.clientId, cut.idPlanche, clients);
         Dimension dimPanneau = User.getUserDimensions(cut.supplierId, cut.idPanneau, suppliers);
-        if ( (cut.PositionX + dimPlanche.Longueur > dimPanneau.Longueur) || (cut.PositionY + dimPlanche.largeur > dimPanneau.largeur) ){
-          System.out.println("Error in cut: cut is out of bounds.");
+        if ( (cut.PositionY + dimPlanche.Longueur > dimPanneau.Longueur) || (cut.PositionX + dimPlanche.largeur > dimPanneau.largeur) ){
+          //System.out.println("Error in cut: cut is out of bounds.");
           TrueList[2] = false;
         }
         return TrueList;

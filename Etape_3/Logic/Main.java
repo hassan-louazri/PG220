@@ -41,7 +41,7 @@ class Main {
 
       }
      
-      cuts = new CutFactory().generate(listClientslocal,listSupplierslocal);
+      cuts = new algo2().generate(listClientslocal,listSupplierslocal);
 
       for(int j=0;j<listClient.size();j++){
          System.out.print("\n\n=============Client n°:"+listClient.get(j).id+"=============\n");
