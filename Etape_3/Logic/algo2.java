@@ -64,12 +64,11 @@ class algo2 {
                     break;
             }
         }
-        System.out.println(ClientsOrdonne.size());
-        for(Client c : ClientsOrdonne){
-            System.out.print(c.id+"---"+"--");
-            for (Wood w :c.listW)
-            System.out.println(w.id);
-        }
+        // System.out.println(ClientsOrdonne.size());
+        // for(Client c : ClientsOrdonne){
+        //     for (Wood w :c.listW)
+        //     System.out.println(w.id);
+        // }
         for (int i = 0; i < ClientsOrdonne.size(); i++) {
            // List<String> cutList = new ArrayList<>();
             for (int j = 0; j < ClientsOrdonne.get(i).listW.size(); j++) {
@@ -123,12 +122,10 @@ int nextabscisse=0;
                     cutList[5] = pnumber+"";
                     cutList[6] = nextabscisse+"";
                     cutList[7] = nextOrdonnée+"";
-                    System.out.println("kkii");;
                     nextabscisse+=dim.largeur;
                     if( p.dimension.largeur < dim.largeur+nextabscisse)
                       nextOrdonnée+=dim.Longueur;
             } else{
-                  System.out.println("coucou"+j);
                     if(p.dimension.Longueur < dim.Longueur+nextOrdonnée){
                         nextOrdonnée=0;
                         nextabscisse=0;

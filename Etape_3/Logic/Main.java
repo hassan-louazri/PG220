@@ -2,8 +2,10 @@ package Logic;
 import Reader.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
+import java.awt.event.*;
 
-class Main {
+class Main{
    private static List<Client> listClient;
    private static List<Supplier> listSupplier;
    private static List<Cut> cuts;
@@ -20,7 +22,7 @@ class Main {
       new SupplierFactory().generate(IRead.data);
       r.readData("clients.xml");
       new ClientFactory().generate(IRead.data);
-      
+
       //creating new Lists so we can modify it in CutFactory
       for(Client c : listClient ){
          List<Planche> p = new ArrayList<>();
@@ -40,54 +42,64 @@ class Main {
          listSupplierslocal.add(ss);
 
       }
-     
+      //Start GUI
+      GUI();
+
       cuts = new algo2().generate(listClientslocal,listSupplierslocal);
 
       for(int j=0;j<listClient.size();j++){
-         System.out.print("\n\n=============Client n°:"+listClient.get(j).id+"=============\n");
+         // System.out.print("\n\n=============Client n°:"+listClient.get(j).id+"=============\n");
          for (int i = 0; i< listClient.get(j).listW.size();i++){
-            String demande = "\nRead from Main: Commande n°" + listClient.get(j).listW.get(i).id + " de " + listClient.get(j).listW.get(i).number + " Planches à livrer pour le " + listClient.get(j).listW.get(i).date + " au prix maximal de " + listClient.get(j).listW.get(i).price + " de Longueur " + listClient.get(j).listW.get(i).dimension.Longueur +" et de largueur " + listClient.get(j).listW.get(i).dimension.largeur + "\n";
-            System.out.println(demande);
+            // String demande = "\nRead from Main: Commande n°" + listClient.get(j).listW.get(i).id + " de " + listClient.get(j).listW.get(i).number + " Planches à livrer pour le " + listClient.get(j).listW.get(i).date + " au prix maximal de " + listClient.get(j).listW.get(i).price + " de Longueur " + listClient.get(j).listW.get(i).dimension.Longueur +" et de largueur " + listClient.get(j).listW.get(i).dimension.largeur + "\n";
+            // System.out.println(demande);
             boolean[] ClientIsValid = listClient.get(j).listW.get(i).isValid();
             //Price control
-            System.out.println("Price is valid : " + ClientIsValid[0]);
+            // System.out.println("Price is valid : " + ClientIsValid[0]);
             //Dimension control
-            System.out.println("Dimension is valid : " + ClientIsValid[1]);
+            // System.out.println("Dimension is valid : " + ClientIsValid[1]);
             //Date control
-            System.out.println("Date is valid : " + ClientIsValid[2]);
+            // System.out.println("Date is valid : " + ClientIsValid[2]);
          }
       }
-      System.out.print("\n\n=================================================\n\n"+listSupplier.size());
+      // System.out.print("\n\n=================================================\n\n"+listSupplier.size());
 
       for(int j=0;j<listSupplier.size();j++){
-         System.out.print("\n\n=============Supplier n°:"+listSupplier.get(j).id+"=============\n");
+         // System.out.print("\n\n=============Supplier n°:"+listSupplier.get(j).id+"=============\n");
          for (int i = 0; i< listSupplier.get(j).listW.size();i++){
             String supply = "\nRead from Main: Panneau n°" + listSupplier.get(j).listW.get(i).id + " de " + listSupplier.get(j).listW.get(i).number + " Panneaux à fournir pour le " + listSupplier.get(j).listW.get(i).date + " au prix minimal de " +listSupplier.get(j).listW.get(i).price + " de Longueur " + listSupplier.get(j).listW.get(i).dimension.Longueur +" et de largueur " + listSupplier.get(j).listW.get(i).dimension.largeur + "\n";
-            System.out.println(supply);
+            // System.out.println(supply);
             boolean[] SupplierIsValid = listSupplier.get(j).listW.get(i).isValid();
             //Price control
-            System.out.println("Price is valid : " + SupplierIsValid[0]);
+            // System.out.println("Price is valid : " + SupplierIsValid[0]);
             //Dimension control
-            System.out.println("Dimension is valid : " + SupplierIsValid[1]);
+            // System.out.println("Dimension is valid : " + SupplierIsValid[1]);
             //Date control
-            System.out.println("Date is valid : " + SupplierIsValid[2]);
+            // System.out.println("Date is valid : " + SupplierIsValid[2]);
          }
       }
-      System.out.print("\n\n=================================================\n\n");
-      
+      // System.out.print("\n\n=================================================\n\n");
+
       for (int j=0;j<cuts.size() ;j++ ) {
          String jobDone = "\nDécoupe de la Planche n°" + cuts.get(j).idPlanche+"."+ cuts.get(j).numPlanche + " pour le client n°" + cuts.get(j).clientId + " du panneau n°"+ cuts.get(j).idPanneau + "." + cuts.get(j).numPanneau + " du fournisseur n°" + cuts.get(j).supplierId + " dont la position du départ est (x, y) = (" + cuts.get(j).PositionX +", "+ cuts.get(j).PositionY + ").\n";
-         System.out.println(jobDone);
+         // System.out.println(jobDone);
          boolean[] CutIsValid = cuts.get(j).isValid();
          //Positions Control
-         System.out.println("Positions are valid : " + CutIsValid[0]);
+         // System.out.println("Positions are valid : " + CutIsValid[0]);
          //Dimensions Control
-         System.out.println("Dimensions are valid : " + CutIsValid[2]);
+         // System.out.println("Dimensions are valid : " + CutIsValid[2]);
       }
 
-      System.out.println("=== SVG files:");
-      new Solution(listClient, listSupplier, cuts);
-      System.out.print("\n=================================================\n\n");
+      // System.out.println("=== SVG files:");
+      // cuts.sort(Comparator.comparing(Cut::supplierId));
+      // for(Cut cut : cuts){
+      //   System.out.println(cut.supplierId);
+      //   System.out.println(cut.idPanneau);
+      //   System.out.println(cut.numPanneau);
+      //   System.out.println("\n");
+      // }
+      // new Solution(listClient, listSupplier, cuts);
+      // new Solution3(cuts);
+      // System.out.print("\n=================================================\n\n");
    }
 
    static List<Client> getClientsList(){
@@ -109,5 +121,31 @@ class Main {
    }
    static void addCutToList(Cut newCut){
       cuts.add(newCut);
+   }
+
+   static void GUI(){
+     JFrame frame = new JFrame("Welcome");
+     final JTextArea textArea = new JTextArea();
+     textArea.setBounds(50, 50, 180, 20);
+     String[] algos = new String[] {"Basic Algo", "Second Algo", "Last Algo"};
+     JComboBox<String> boxList = new JComboBox<>(algos);
+     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     frame.setSize(300, 300);
+     //button
+     JButton button = new JButton("Press");
+     button.setBounds(90, 90, 100, 40);
+     button.addActionListener(new ActionListener(){
+       public void actionPerformed(ActionEvent e){
+           textArea.setText("Done, please close window.");
+           new Solution(listClient, listSupplier, cuts);
+       }
+     });
+     //Combo Box
+     frame.add(boxList);
+     frame.add(button);
+     frame.add(textArea);
+     frame.setVisible(true);
+     String selectedAlgo = (String) boxList.getSelectedItem();
+     System.out.println("You selected the "+selectedAlgo);
    }
 }
