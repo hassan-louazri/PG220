@@ -8,7 +8,7 @@ class CutFactory {
     CutFactory(){
         //generate();
     }
-    public List<Cut> generate( List<Client> clients,List<Supplier> suppliers ){
+     List<Cut> generate( List<Client> clients,List<Supplier> suppliers ){
 
         List<Cut> cuts = new ArrayList<>();
         //List<Supplier> tmp = suppliers;

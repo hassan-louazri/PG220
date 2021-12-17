@@ -11,53 +11,7 @@ import java.util.List;
 public class XMLReader
 {
 
-   private static int loop=0;
-  
-   static Cut readDecoupe(String filename)
-    {
-        double PositionX=0;
-        double PositionY=0;
-        int clientid=0,supplierid=0;
-        int numplanche=0,numpanneau=0;
-        try
-        {
-            FileInputStream file = new FileInputStream(filename);
-            XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(file);
-            while(reader.hasNext())
-            {
-                if(reader.next() == XMLStreamConstants.START_ELEMENT)
-                {
-                    
-                    if(reader.getName().toString() == "client")
-                    {
-                        clientid =(int)controle_data(reader.getAttributeValue(0),"Integer");
-                        numplanche =(int)controle_data(reader.getAttributeValue(1),"Integer");
-                    }
-                    if(reader.getName().toString() == "fournisseur")
-                    {
-                        supplierid =(int)controle_data(reader.getAttributeValue(0),"Integer");
-                        numpanneau =(int)controle_data(reader.getAttributeValue(1),"Integer");
-                    }
-                    if(reader.getName().toString() == "position")
-                    {
-                        PositionX =(double)controle_data(reader.getAttributeValue(0),"Double");
-                        PositionY =(double)controle_data(reader.getAttributeValue(1),"Double");
-                    }
-                }
-            }
-           
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch (XMLStreamException e)
-        {
-            e.printStackTrace();
-        }
-        Cut c=new Cut(PositionX, PositionY, clientid, supplierid, numplanche, numpanneau);
-    return c; 
-   }
+    private static int loop=0;
     static  void readXml(String filename,String name, String type)//name:client/fournisseur
                                                                 //type: planche/panneau
     {
@@ -96,7 +50,7 @@ public class XMLReader
                             }
                         }
                 }
-               
+
             }
         }
         catch (FileNotFoundException e)
@@ -107,7 +61,7 @@ public class XMLReader
         {
             e.printStackTrace();
         }
-       
+
     }
 
     static User readName(XMLStreamReader reader, String type) throws XMLStreamException
@@ -170,26 +124,26 @@ public class XMLReader
             Panneau p=new Panneau(id,number,date, price,dim);
             return p;
         }
-        
+
     }
     static Object controle_data(String data, String type){
         Object r=0;
         if(type=="Double"){
             try {
                     r=Double.parseDouble(data);
-                    r= (double)r;   
+                    r= (double)r;
             } catch (Exception e) {
                     r=-1.0;
-                
+
             }
             return (double)r;
         }else  if(type=="Integer"){
             try {
                     r=Integer.parseInt(data);
-                    r= (int)r;   
+                    r= (int)r;
             } catch (Exception e) {
                     r=-1;
-                
+
             }
             return (int)r;
         }else

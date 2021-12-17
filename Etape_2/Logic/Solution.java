@@ -24,8 +24,6 @@ class Solution{
       filename="solution_"+file_index+".svg";
       boolean[] vlist = cut.isValid();
       boolean isvalid = vlist[0] && vlist[1] && vlist[2]; 
-      // System.out.println("cut in solution x = "+cut.PositionX+"y = "+cut.PositionY);
-      // System.out.println("cut in solution cut.supplierId: "+ cut.supplierId +" cut.numPanneau"+cut.numPanneau+" widthPanneau = "+ getWood(suppliers, cut.supplierId, cut.numPanneau).dimension.Longueur +" heightPanneau = "+ getWood(suppliers, cut.supplierId, cut.numPanneau).dimension.largeur);
       if(isvalid){
         Makesvg(getWood(clients, cut.clientId, cut.idPlanche), getWood(suppliers, cut.supplierId, cut.idPanneau), cut.PositionX, cut.PositionY, filename);
       }
@@ -62,8 +60,6 @@ class Solution{
     String heightPlanche = planche.dimension.Longueur+"";
     String positionX = x+"";
     String positionY = y+"";
-    // System.out.println("cut in Makesvg x = "+positionX+"y = "+positionY);
-    // System.out.println("cut in Makesvg widthPanneau = "+ widthPanneau +" heightPanneau = "+ heightPanneau);
     try {
          FileWriter myWriter = new FileWriter(filename);
          StringBuilder writeBuilder = new StringBuilder();

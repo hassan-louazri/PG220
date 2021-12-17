@@ -2,13 +2,9 @@ package Logic;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math.*;
-class algo2 {
+class CutFactory2 {
 
-
-    algo2(){
-        //generate();
-    }
-    public List<Cut> generate( List<Client> clients,List<Supplier> suppliers ){
+     List<Cut> generate( List<Client> clients,List<Supplier> suppliers ){
 
         List<Cut> cuts = new ArrayList<>();
 

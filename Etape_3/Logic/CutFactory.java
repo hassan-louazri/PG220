@@ -8,7 +8,7 @@ class CutFactory {
     CutFactory(){
         //generate();
     }
-    public List<Cut> generate( List<Client> clients,List<Supplier> suppliers ){
+     List<Cut> generate( List<Client> clients,List<Supplier> suppliers ){
 
         List<Cut> cuts = new ArrayList<>();
 
@@ -64,12 +64,12 @@ class CutFactory {
                     break;
             }
         }
-        System.out.println(ClientsOrdonne.size());
-        for(Client c : ClientsOrdonne){
-            System.out.print(c.id+"---"+"--");
-            for (Wood w :c.listW)
-            System.out.println(w.id);
-        }
+        // System.out.println(ClientsOrdonne.size());
+        // for(Client c : ClientsOrdonne){
+        //     System.out.print(c.id+"---"+"--");
+        //     for (Wood w :c.listW)
+        //     System.out.println(w.id);
+        // }
         for (int i = 0; i < ClientsOrdonne.size(); i++) {
            // List<String> cutList = new ArrayList<>();
             for (int j = 0; j < ClientsOrdonne.get(i).listW.size(); j++) {

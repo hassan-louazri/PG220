@@ -7,7 +7,7 @@ class ClientFactory{
   ClientFactory(){
    // generate(data);
   }
-  public void generate(List<String> data) {
+   void generate(List<String> data) {
     for(int index=0; index<data.size();index++){
         if(data.get(index)=="client"){ 
           List<String> clientData = new ArrayList<>();
